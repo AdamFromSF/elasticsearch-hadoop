@@ -33,7 +33,7 @@ private[spark] abstract class AbstractEsRDDIterator[T](
   }
 
   // Register an on-task-completion callback to close the input stream.
-  CompatUtils.addOnCompletition(context, () => closeIfNeeded())
+  CompatUtils.addOnCompletion(context, () => closeIfNeeded())
 
   def hasNext: Boolean = {
     if (CompatUtils.isInterrupted(context)) {

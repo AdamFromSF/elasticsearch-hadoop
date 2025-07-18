@@ -79,7 +79,7 @@ abstract class CompatUtils {
             INTERRUPTED_FIELD = field;
         }
 
-        static void addOnCompletition(TaskContext taskContext, final Function0<?> function) {
+        static void addOnCompletion(TaskContext taskContext, final Function0<?> function) {
             taskContext.addOnCompleteCallback(new AbstractFunction0() {
                 @Override
                 public BoxedUnit apply() {
@@ -96,7 +96,7 @@ abstract class CompatUtils {
     }
 
     private static abstract class Spark11TaskContext {
-        static void addOnCompletition(TaskContext taskContext, final Function0<?> function) {
+        static void addOnCompletion(TaskContext taskContext, final Function0<?> function) {
             taskContext.addTaskCompletionListener(new TaskCompletionListener() {
                 @Override
                 public void onTaskCompletion(TaskContext context) {
@@ -110,12 +110,12 @@ abstract class CompatUtils {
         }
     }
 
-    static void addOnCompletition(TaskContext taskContext, Function0<?> function) {
+    static void addOnCompletion(TaskContext taskContext, Function0<?> function) {
         if (SPARK_11_AVAILABLE) {
-            Spark11TaskContext.addOnCompletition(taskContext, function);
+            Spark11TaskContext.addOnCompletion(taskContext, function);
         }
         else {
-            Spark10TaskContext.addOnCompletition(taskContext, function);
+            Spark10TaskContext.addOnCompletion(taskContext, function);
         }
     }
 
